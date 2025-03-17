@@ -603,7 +603,7 @@ with st.sidebar:
     In a production environment, real API calls would be made to fetch actual occurrence counts.
     """)
 
-    ))
+    )
         
         # Add vertical line at x=0
         fig1.add_shape(
