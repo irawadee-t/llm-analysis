@@ -603,43 +603,43 @@ with st.sidebar:
     In a production environment, real API calls would be made to fetch actual occurrence counts.
     """)
         
-        # Add vertical line at x=0
-        fig1.add_shape(
-            type="line",
-            x0=0, y0=-0.5,
-            x1=0, y1=len(topic_df_sorted) - 0.5,
-            line=dict(color="black", width=1, dash="dash")
+    # Add vertical line at x=0
+    fig1.add_shape(
+        type="line",
+        x0=0, y0=-0.5,
+        x1=0, y1=len(topic_df_sorted) - 0.5,
+        line=dict(color="black", width=1, dash="dash")
+    )
+    
+    # Update layout
+    fig1.update_layout(
+        height=max(400, len(topic_df_sorted) * 40),  # Adjust height based on number of points
+        xaxis_title="Log Odds Ratio",
+        yaxis_title="Historical Figure",
+        margin=dict(l=10, r=10, t=10, b=10),
+        xaxis=dict(
+            zeroline=False,
+            range=[min(topic_min * 1.1, -0.1), max(topic_max * 1.1, 0.1)]
         )
-        
-        # Update layout
-        fig1.update_layout(
-            height=max(400, len(topic_df_sorted) * 40),  # Adjust height based on number of points
-            xaxis_title="Log Odds Ratio",
-            yaxis_title="Historical Figure",
-            margin=dict(l=10, r=10, t=10, b=10),
-            xaxis=dict(
-                zeroline=False,
-                range=[min(topic_min * 1.1, -0.1), max(topic_max * 1.1, 0.1)]
-            )
+    )
+    
+    st.plotly_chart(fig1, use_container_width=True)
+    
+    # Add annotations
+    st.markdown(f"""
+    - **Positive values (blue)**: Higher topic scores in {lang1}
+    - **Negative values (green)**: Higher topic scores in {lang2}
+    - **Values near zero**: Similar topic scores in both languages
+    """)
+    
+    # Display data table
+    with st.expander("Show Data Table"):
+        st.dataframe(
+            topic_df.sort_values('log_odds', ascending=False)
+            .rename(columns={'figure': 'Historical Figure', 'log_odds': 'Log Odds Ratio'})
+            .reset_index(drop=True),
+            hide_index=True
         )
-        
-        st.plotly_chart(fig1, use_container_width=True)
-        
-        # Add annotations
-        st.markdown(f"""
-        - **Positive values (blue)**: Higher topic scores in {lang1}
-        - **Negative values (green)**: Higher topic scores in {lang2}
-        - **Values near zero**: Similar topic scores in both languages
-        """)
-        
-        # Display data table
-        with st.expander("Show Data Table"):
-            st.dataframe(
-                topic_df.sort_values('log_odds', ascending=False)
-                .rename(columns={'figure': 'Historical Figure', 'log_odds': 'Log Odds Ratio'})
-                .reset_index(drop=True),
-                hide_index=True
-            )
     
     with tab2:
         st.subheader(f"Sentiment Score Log Odds Ratio: {lang1} vs {lang2}")
