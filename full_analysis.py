@@ -602,8 +602,6 @@ with st.sidebar:
     **Note**: In the demo mode, the Infini-gram API calls are simulated with random data.
     In a production environment, real API calls would be made to fetch actual occurrence counts.
     """)
-
-    )
         
         # Add vertical line at x=0
         fig1.add_shape(
