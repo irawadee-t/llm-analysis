@@ -672,4 +672,4 @@ with st.sidebar:
                 cmax=max(abs(sent_min), abs(sent_max))
             ),
             text=sentiment_df_sorted['figure'],
-            hovertemplate='%{y}: %{x:.3f}<extra></extra>')
+            hovertemplate='%{y}: %{x:.3f}<extra></extra>'))
